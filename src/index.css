@@ -29,6 +29,7 @@ header {
   padding: 1em 2em;
   align-items: center;
   background: hsl(var(--clr-accent) / 0.8);
+  box-shadow: 0 3px 8px 5px hsl(0 0% 0% / 0.2);
 }
 
 .header-title {
