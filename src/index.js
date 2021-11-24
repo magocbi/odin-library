@@ -117,6 +117,9 @@ function createBookCard({ title, author, numberOfPages, read, img }) {
   const readButton = document.createElement('button');
 
   bookCard.classList.add('book-card');
+  if (read) {
+    bookCard.classList.add('read');
+  }
   imgContainer.classList.add('img-container');
   image.src = img;
   bookInfo.classList.add('book-info');
@@ -153,7 +156,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function addPresetBooks() {
   books.forEach(({ title, author, pages, urlImage }) =>
-    addBookToLibrary(title, author, pages, false, urlImage)
+    addBookToLibrary(title, author, pages, true, urlImage)
   );
 }
 

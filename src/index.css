@@ -131,3 +131,7 @@ header {
   background-color: var(--clr-danger);
   color: hsl(var(--clr-primary));
 }
+
+.read .btn-toggle-read {
+  background-color: var(--clr-success);
+}
