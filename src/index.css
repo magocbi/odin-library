@@ -1,6 +1,8 @@
 :root {
-  --clr-primary: #fff;
-  --clr-accent: #000;
+  --clr-primary: 0 100% 100%;
+  --clr-accent: 0 0% 0%;
+  --clr-success: green;
+  --clr-danger: red;
 }
 
 /* Resets */
@@ -18,4 +20,33 @@ body {
 ul {
   padding: 0;
   list-style: none;
+}
+
+/* Header */
+
+header {
+  display: flex;
+  padding: 1em 2em;
+  align-items: center;
+  background: hsl(var(--clr-accent) / 0.8);
+}
+
+.header-title {
+  margin-left: auto;
+  margin-right: auto;
+  color: hsl(var(--clr-primary));
+}
+
+.btn-add {
+  padding: 0.25em 0.75em;
+  background: var(--clr-success);
+  border-radius: 5px;
+  color: hsl(var(--clr-primary));
+  box-shadow: 0 0 0 1px hsl(var(--clr-primary));
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-add:active {
+  box-shadow: none;
 }
