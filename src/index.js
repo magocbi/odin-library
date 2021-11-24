@@ -93,6 +93,10 @@ function Book(title, author, numberOfPages, read, img) {
   this.img = img;
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
 function addBookToLibrary(
   title,
   author,
@@ -106,6 +110,10 @@ function addBookToLibrary(
 
 function removeBookFromLibrary(indexToRemove) {
   myLibrary = myLibrary.filter((book, index) => index !== indexToRemove);
+}
+
+function toggleReadBook(index) {
+  myLibrary[index].toggleRead();
 }
 
 function createBookCard(index, { title, author, numberOfPages, read, img }) {
@@ -203,9 +211,18 @@ function handleOpenModal() {
 
 function handleLibraryClick(e) {
   const removeBtn = e.target.closest('.remove-btn');
-  if (!removeBtn) return;
-  const index = removeBtn.closest('.book-card[data-key]').dataset.key;
-  removeBookFromLibrary(parseInt(index));
+  const readToggleBtn = e.target.closest('.btn-toggle-read');
+  if (!removeBtn && !readToggleBtn) return;
+
+  if (removeBtn) {
+    const index = removeBtn.closest('.book-card[data-key]').dataset.key;
+    removeBookFromLibrary(parseInt(index));
+  }
+
+  if (readToggleBtn) {
+    const index = readToggleBtn.closest('.book-card[data-key]').dataset.key;
+    toggleReadBook(index);
+  }
   populateLibrary();
 }
 
