@@ -132,10 +132,41 @@ function createBookCard({ title, author, numberOfPages, read, img }) {
 
   pages.append(pagesLabel, pagesNumber);
   bookInfo.append(bookTitle, bookAuthor, pages);
+  imgContainer.append(image);
   bookCard.append(imgContainer, bookInfo, readButton);
 
   return bookCard;
 }
+
+const libraryElem = document.querySelector('.library');
+
+function populateLibrary() {
+  const cardList = myLibrary.map((book) => createBookCard(book));
+  libraryElem.innerHTML = '';
+  libraryElem.append(...cardList);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  addPresetBooks();
+  populateLibrary();
+});
+
+function addPresetBooks() {
+  books.forEach(({ title, author, pages, urlImage }) =>
+    addBookToLibrary(title, author, pages, false, urlImage)
+  );
+}
+
+/* 
+{
+    id: 1,
+    title: 'Modern Buildings',
+    author: 'Ardi Evans',
+    pages: 206,
+    urlImage:
+      'https://images.unsplash.com/photo-1615347497551-277d6616b959?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=692&q=80',
+  }
+*/
 
 /*
 <li class="book-card">
