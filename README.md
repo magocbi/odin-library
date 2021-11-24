@@ -1,6 +1,6 @@
 # Odin Project: Library
 
-[Full Stack Path JS](https://www.theodinproject.com/paths/full-stack-javascript/javascript) project: [Library](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/library) solution. It adds books to a library and displays it.
+[Full Stack Path JS](https://www.theodinproject.com/paths/full-stack-javascript/javascript) project: [Library](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/library) solution. It adds books to a library,displays them,remove them.
 
 ## Built with
 
