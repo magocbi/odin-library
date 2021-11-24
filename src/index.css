@@ -1,0 +1,21 @@
+:root {
+  --clr-primary: #fff;
+  --clr-accent: #000;
+}
+
+/* Resets */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
