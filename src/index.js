@@ -142,6 +142,9 @@ function createBookCard({ title, author, numberOfPages, read, img }) {
 }
 
 const libraryElem = document.querySelector('.library');
+const modalContainer = document.querySelector('.modal-container');
+const openModalBtn = document.querySelector('.btn-add');
+const bookForm = modalContainer.querySelector('.modal-form');
 
 function populateLibrary() {
   const cardList = myLibrary.map((book) => createBookCard(book));
@@ -149,42 +152,47 @@ function populateLibrary() {
   libraryElem.append(...cardList);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  addPresetBooks();
-  populateLibrary();
-});
-
 function addPresetBooks() {
   books.forEach(({ title, author, pages, urlImage }) =>
     addBookToLibrary(title, author, pages, true, urlImage)
   );
 }
 
-/* 
-{
-    id: 1,
-    title: 'Modern Buildings',
-    author: 'Ardi Evans',
-    pages: 206,
-    urlImage:
-      'https://images.unsplash.com/photo-1615347497551-277d6616b959?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=692&q=80',
+function closeModal() {
+  modalContainer.classList.add('closed');
+  bookForm.removeEventListener('submit', handleAddBook);
+}
+function handleAddBook(e) {
+  e.preventDefault();
+  const title = bookForm.elements.title.value;
+  const author = bookForm.elements.author.value;
+  const pages = bookForm.elements.pages.value;
+  const url = bookForm.elements.url.value;
+  const read = bookForm.elements.read.checked;
+  if (url.trim()) {
+    addBookToLibrary(title, author, pages, read, url);
+  } else {
+    addBookToLibrary(title, author, pages, read);
   }
-*/
+  closeModal();
+  populateLibrary();
+}
 
-/*
-<li class="book-card">
-            <div class="img-container">
-              <img src="./images/book-img.svg" alt="book" />
-            </div>
-            <div class="book-info">
-              <h2 class="title">My new book</h2>
-              <h3 class="author">by Diego</h3>
+function handleCloseModalContainer(e) {
+  e.stopPropagation();
+  if (!e.target.classList.contains('modal-container')) return;
+  closeModal();
+}
 
-              <div class="pages">
-                <h4>Pages:</h4>
-                <p>377</p>
-              </div>
-            </div>
-            <button class="btn-toggle-read">Read</button>
-          </li>
-*/
+function handleOpenModal() {
+  modalContainer.classList.remove('closed');
+  bookForm.addEventListener('submit', handleAddBook);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // addPresetBooks();
+  populateLibrary();
+});
+
+openModalBtn.addEventListener('click', handleOpenModal);
+modalContainer.addEventListener('click', handleCloseModalContainer);

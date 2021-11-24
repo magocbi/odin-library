@@ -152,6 +152,10 @@ header {
   justify-content: center;
   align-items: center;
 }
+
+.modal-container.closed {
+  display: none;
+}
 .modal {
   padding: 2em;
   background-color: hsl(var(--clr-primary));
