@@ -2,6 +2,11 @@
 
 [Full Stack Path JS](https://www.theodinproject.com/paths/full-stack-javascript/javascript) project: [Library](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/library) solution. It adds books to a library,displays them,remove them.
 
+## Links
+
+- [Repo](https://github.com/magocbi/odin-library)
+- [Live](https://magocbi.github.io/odin-library/)
+
 ## Built with
 
 - Objects and Object Constructors
