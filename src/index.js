@@ -81,7 +81,7 @@ const books = [
   },
 ];
 
-const DEFAULT_BOOK_IMG = '/images/book-img.svg';
+const DEFAULT_BOOK_IMG = './images/book-img.svg';
 
 let myLibrary = [];
 
