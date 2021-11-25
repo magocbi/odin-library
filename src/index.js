@@ -83,19 +83,40 @@ const books = [
 
 const DEFAULT_BOOK_IMG = './images/book-img.svg';
 
-let myLibrary = [];
+const myLibrary = (function createLibrary() {
+  let library = [];
 
-function Book(title, author, numberOfPages, read, img) {
-  this.title = title;
-  this.author = author;
-  this.numberOfPages = numberOfPages;
-  this.read = read;
-  this.img = img;
+  function addBook(book) {
+    library.push(book);
+  }
+
+  function removeBook(indexToRemove) {
+    library = library.filter((book, index) => index !== indexToRemove);
+  }
+
+  function getBooks() {
+    return library.slice();
+  }
+
+  function toggleRead(index) {
+    library[index].toggleRead();
+  }
+
+  return { addBook, removeBook, toggleRead, getBooks };
+})();
+
+class Book {
+  constructor(title, author, numberOfPages, read, img) {
+    this.title = title;
+    this.author = author;
+    this.numberOfPages = numberOfPages;
+    this.read = read;
+    this.img = img;
+  }
+  toggleRead = function () {
+    this.read = !this.read;
+  };
 }
-
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
 
 function addBookToLibrary(
   title,
@@ -105,16 +126,9 @@ function addBookToLibrary(
   img = DEFAULT_BOOK_IMG
 ) {
   const bookToAdd = new Book(title, author, numberOfPages, read, img);
-  myLibrary.push(bookToAdd);
+  myLibrary.addBook(bookToAdd);
 }
 
-function removeBookFromLibrary(indexToRemove) {
-  myLibrary = myLibrary.filter((book, index) => index !== indexToRemove);
-}
-
-function toggleReadBook(index) {
-  myLibrary[index].toggleRead();
-}
 // Pre-add Books to the library
 function addPresetBooks() {
   books.forEach(({ title, author, pages, urlImage }) =>
@@ -176,17 +190,18 @@ const bookForm = modalContainer.querySelector('.modal-form');
 
 // Display library in cards
 function populateLibrary() {
-  const cardList = myLibrary.map((book, index) => createBookCard(index, book));
+  const cardList = myLibrary
+    .getBooks()
+    .map((book, index) => createBookCard(index, book));
   libraryElem.innerHTML = '';
   libraryElem.append(...cardList);
 }
 
+// Event Handlers
 function closeModal() {
   modalContainer.classList.add('closed');
   bookForm.removeEventListener('submit', handleAddBook);
 }
-
-// Event Handlers
 
 function handleAddBook(e) {
   e.preventDefault();
@@ -222,12 +237,12 @@ function handleLibraryClick(e) {
 
   if (removeBtn) {
     const index = removeBtn.closest('.book-card[data-key]').dataset.key;
-    removeBookFromLibrary(parseInt(index));
+    myLibrary.removeBook(parseInt(index));
   }
 
   if (readToggleBtn) {
     const index = readToggleBtn.closest('.book-card[data-key]').dataset.key;
-    toggleReadBook(index);
+    myLibrary.toggleRead(index);
   }
   populateLibrary();
 }
