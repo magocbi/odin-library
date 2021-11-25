@@ -30,6 +30,12 @@ button:hover {
   opacity: 0.8;
 }
 
+/* globals */
+
+body {
+  background-color: #eee;
+}
+
 /* Header */
 
 header {
@@ -76,6 +82,7 @@ header {
 }
 
 .book-card {
+  background-color: hsl(var(--clr-primary));
   box-shadow: 0 3px 10px 0px hsl(0 0% 0% / 0.2), 0 0 0 1px hsl(0 0% 0% / 0.15);
   border-radius: 1rem;
   display: flex;
