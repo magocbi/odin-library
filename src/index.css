@@ -142,10 +142,12 @@ header {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  font-size: 0.8rem;
 }
 
 .pages h4 {
   margin: 0;
+  font-weight: 400;
 }
 
 .btn-toggle-read {
