@@ -115,6 +115,14 @@ function removeBookFromLibrary(indexToRemove) {
 function toggleReadBook(index) {
   myLibrary[index].toggleRead();
 }
+// Pre-add Books to the library
+function addPresetBooks() {
+  books.forEach(({ title, author, pages, urlImage }) =>
+    addBookToLibrary(title, author, pages, true, urlImage)
+  );
+}
+
+// UI logic
 
 function createBookCard(index, { title, author, numberOfPages, read, img }) {
   const bookCard = document.createElement('li');
@@ -166,22 +174,20 @@ const modalContainer = document.querySelector('.modal-container');
 const openModalBtn = document.querySelector('.btn-add');
 const bookForm = modalContainer.querySelector('.modal-form');
 
+// Display library in cards
 function populateLibrary() {
   const cardList = myLibrary.map((book, index) => createBookCard(index, book));
   libraryElem.innerHTML = '';
   libraryElem.append(...cardList);
 }
 
-function addPresetBooks() {
-  books.forEach(({ title, author, pages, urlImage }) =>
-    addBookToLibrary(title, author, pages, true, urlImage)
-  );
-}
-
 function closeModal() {
   modalContainer.classList.add('closed');
   bookForm.removeEventListener('submit', handleAddBook);
 }
+
+// Event Handlers
+
 function handleAddBook(e) {
   e.preventDefault();
   const title = bookForm.elements.title.value;
@@ -198,7 +204,7 @@ function handleAddBook(e) {
   populateLibrary();
 }
 
-function handleCloseModalContainer(e) {
+function handleCloseModal(e) {
   e.stopPropagation();
   if (!e.target.classList.contains('modal-container')) return;
   closeModal();
@@ -226,11 +232,15 @@ function handleLibraryClick(e) {
   populateLibrary();
 }
 
+// Event Listeners
+
 window.addEventListener('DOMContentLoaded', () => {
+  // pre-add books
   addPresetBooks();
+  // display books
   populateLibrary();
 });
 
 openModalBtn.addEventListener('click', handleOpenModal);
-modalContainer.addEventListener('click', handleCloseModalContainer);
+modalContainer.addEventListener('click', handleCloseModal);
 libraryElem.addEventListener('click', handleLibraryClick);
