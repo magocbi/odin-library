@@ -11,6 +11,9 @@ const rootConfig = {
 const appConfig = {
   ...rootConfig,
   entry: './src/index.js',
+  devServer: {
+    static: './dist',
+  },
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
