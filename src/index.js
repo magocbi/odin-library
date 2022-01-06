@@ -1,3 +1,7 @@
+import DEFAULT_BOOK_IMG from '../images/book-img.svg';
+import { initializeApp } from 'firebase/app';
+import { getFirebaseConfig } from './firebase-config';
+
 const books = [
   {
     id: 1,
@@ -80,8 +84,6 @@ const books = [
       'https://images.unsplash.com/photo-1615300236079-4bdb43bd9a9a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80',
   },
 ];
-
-import DEFAULT_BOOK_IMG from '../images/book-img.svg';
 
 const myLibrary = (function createLibrary() {
   let library = [];
@@ -259,3 +261,7 @@ window.addEventListener('DOMContentLoaded', () => {
 openModalBtn.addEventListener('click', handleOpenModal);
 modalContainer.addEventListener('click', handleCloseModal);
 libraryElem.addEventListener('click', handleLibraryClick);
+
+const firebaseAppConfig = getFirebaseConfig();
+
+initializeApp(firebaseAppConfig);
