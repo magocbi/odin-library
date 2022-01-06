@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./index.css" />
+    <script src="./main.js" defer></script>
+    <title>My Library</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="header-title">My Library</h1>
+      <button class="btn-add">
+        <span class="material-icons"> add </span>
+      </button>
+    </header>
+    <main>
+      <div class="container">
+        <ul class="library"></ul>
+      </div>
+      <div class="modal-container closed">
+        <div class="modal">
+          <form class="modal-form">
+            <input type="text" name="title" placeholder="Book Title" required />
+            <input
+              type="text"
+              name="author"
+              placeholder="Author Name"
+              required
+            />
+            <input
+              type="number"
+              name="pages"
+              min="1"
+              max="1000"
+              placeholder="Pages"
+              required
+            />
+            <input type="url" name="url" placeholder="IMG URL" />
+            <div class="read-checkbox">
+              <label for="checkbox">Read</label>
+              <input type="checkbox" name="read" id="checkbox" />
+            </div>
+            <button type="submit" name="add">Add Book</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
