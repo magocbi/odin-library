@@ -81,7 +81,7 @@ const books = [
   },
 ];
 
-const DEFAULT_BOOK_IMG = './images/book-img.svg';
+import DEFAULT_BOOK_IMG from '../images/book-img.svg';
 
 const myLibrary = (function createLibrary() {
   let library = [];
