@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --mode=production",
-    "watch": "webpack --watch --mode=development"
+    "watch": "webpack --watch --mode=development",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,9 @@
   "bugs": {
     "url": "https://github.com/magocbi/odin-library/issues"
   },
-  "homepage": "https://github.com/magocbi/odin-library#readme",
+  "homepage": "https://magocbi.github.io/odin-library/",
   "devDependencies": {
+    "gh-pages": "^3.2.3",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
   }
