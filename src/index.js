@@ -1,6 +1,13 @@
 import DEFAULT_BOOK_IMG from '../images/book-img.svg';
 import { initializeApp } from 'firebase/app';
 import { getFirebaseConfig } from './firebase-config';
+import {
+  getProfilePicUrl,
+  getUserName,
+  initFireBaseAuth,
+  signInUser,
+  signOutUser,
+} from './Auth';
 
 const books = [
   {
@@ -187,8 +194,12 @@ function createBookCard(index, { title, author, numberOfPages, read, img }) {
 
 const libraryElem = document.querySelector('.library');
 const modalContainer = document.querySelector('.modal-container');
-const openModalBtn = document.querySelector('.btn-add');
+const openModalBtn = document.querySelector('#open-form-btn');
 const bookForm = modalContainer.querySelector('.modal-form');
+const signInBtn = document.querySelector('#sign-in');
+const signOutBtn = document.querySelector('#sign-out');
+const userPicElem = document.querySelector('#user-pic');
+const userNameElem = document.querySelector('#user-name');
 
 // Display library in cards
 function populateLibrary() {
@@ -249,6 +260,28 @@ function handleLibraryClick(e) {
   populateLibrary();
 }
 
+function onAuthStateChange(user) {
+  if (user) {
+    const profilePicUrl = getProfilePicUrl();
+    const userName = getUserName();
+
+    userPicElem.style.backgroundImage = `url(${profilePicUrl})`;
+    userNameElem.textContent = userName;
+
+    userNameElem.removeAttribute('hidden');
+    userPicElem.removeAttribute('hidden');
+    signOutBtn.removeAttribute('hidden');
+
+    signInBtn.setAttribute('hidden', 'true');
+  } else {
+    userNameElem.setAttribute('hidden', 'true');
+    userPicElem.setAttribute('hidden', 'true');
+    signOutBtn.setAttribute('hidden', 'true');
+
+    signInBtn.removeAttribute('hidden');
+  }
+}
+
 // Event Listeners
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -261,7 +294,11 @@ window.addEventListener('DOMContentLoaded', () => {
 openModalBtn.addEventListener('click', handleOpenModal);
 modalContainer.addEventListener('click', handleCloseModal);
 libraryElem.addEventListener('click', handleLibraryClick);
+signInBtn.addEventListener('click', signInUser);
+signOutBtn.addEventListener('click', signOutUser);
 
 const firebaseAppConfig = getFirebaseConfig();
 
 initializeApp(firebaseAppConfig);
+
+initFireBaseAuth(onAuthStateChange);
