@@ -1,6 +1,6 @@
 const config = {
   apiKey: 'AIzaSyAfVnDS3ClZKlPV38aR4HW34IYS3xP7r44',
-  authDomain: 'https://magocbi.github.io/odin-library/',
+  authDomain: 'library-magocbi.firebaseapp.com',
   projectId: 'library-magocbi',
   storageBucket: 'library-magocbi.appspot.com',
   messagingSenderId: '1096179426777',
