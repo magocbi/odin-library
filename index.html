@@ -14,8 +14,18 @@
   </head>
   <body>
     <header>
+      <div class="user-container">
+        <div hidden id="user-pic"></div>
+        <div hidden id="user-name"></div>
+        <button hidden id="sign-out" type="button" class="btn-add">
+          Sign-out
+        </button>
+        <button id="sign-in" type="button" class="btn-add">
+          <span class="material-icons">account_circle</span>
+        </button>
+      </div>
       <h1 class="header-title">My Library</h1>
-      <button class="btn-add">
+      <button id="open-form-btn" class="btn-add">
         <span class="material-icons"> add </span>
       </button>
     </header>

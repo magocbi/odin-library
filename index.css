@@ -30,6 +30,10 @@ button:hover {
   opacity: 0.8;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 /* globals */
 
 body {
@@ -41,13 +45,52 @@ body {
 header {
   display: flex;
   padding: 1em 2em;
+  gap: 1rem;
   align-items: center;
   background: hsl(var(--clr-accent) / 0.8);
   box-shadow: 0 3px 8px 5px hsl(0 0% 0% / 0.2);
 }
 
+.user-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+#user-pic {
+  width: 50px;
+  aspect-ratio: 1;
+  background-size: contain;
+  border-radius: 50%;
+  border: 2px solid var(--clr-success);
+}
+
+#sign-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-name {
+  color: hsl(var(--clr-primary));
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  #user-name,
+  #user-pic {
+    display: none;
+  }
+}
+
+#sign-out {
+  border: 1px solid var(--clr-danger);
+  box-shadow: none;
+  font-size: 1.3rem;
+}
+
 .header-title {
-  margin-left: auto;
   margin-right: auto;
   color: hsl(var(--clr-primary));
 }
