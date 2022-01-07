@@ -9,6 +9,8 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 
+let unsub;
+
 export async function getLibrary(userId) {
   const libraryRef = doc(getFirestore(), 'libraries', userId);
   const librarySnap = await getDoc(libraryRef);
@@ -42,7 +44,11 @@ async function createLibrary(userId) {
 }
 
 export function listenLibraryUpdates(userId, libraryChangeHandler) {
-  const unsub = onSnapshot(doc(getFirestore(), 'libraries', userId), (doc) =>
+  unsub = onSnapshot(doc(getFirestore(), 'libraries', userId), (doc) =>
     libraryChangeHandler(doc.data().books)
   );
+}
+
+export function unsubscribeLibraryUpdates() {
+  if (unsub) unsub();
 }

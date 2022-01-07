@@ -16,6 +16,7 @@ import {
   listenLibraryUpdates,
   removeBookAtLibrary,
   storeBookAtLibrary,
+  unsubscribeLibraryUpdates,
   updateBookReadStatus,
 } from './Store';
 
@@ -204,7 +205,7 @@ function onAuthStateChange(user) {
     signOutBtn.setAttribute('hidden', 'true');
     signInBtn.removeAttribute('hidden');
     openModalBtn.setAttribute('disabled', 'true');
-
+    unsubscribeLibraryUpdates();
     myLibrary.empty();
     populateLibrary();
   }
