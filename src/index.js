@@ -1,131 +1,23 @@
 import DEFAULT_BOOK_IMG from '../images/book-img.svg';
+import Book from './Book';
+import myLibrary from './Library';
 import { initializeApp } from 'firebase/app';
 import { getFirebaseConfig } from './firebase-config';
 import {
   getProfilePicUrl,
+  getUserId,
   getUserName,
   initFireBaseAuth,
   signInUser,
   signOutUser,
 } from './Auth';
-
-const books = [
-  {
-    id: 1,
-    title: 'Modern Buildings',
-    author: 'Ardi Evans',
-    pages: 206,
-    urlImage:
-      'https://images.unsplash.com/photo-1615347497551-277d6616b959?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=692&q=80',
-  },
-  {
-    id: 2,
-    title: 'Busy City Life',
-    author: 'Lerone Pieters',
-    pages: 307,
-    urlImage:
-      'https://images.unsplash.com/photo-1615346340977-cf7f5a8f3059?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  },
-  {
-    id: 3,
-    title: 'Sweets and Cakes',
-    author: 'Uliana Kopanytsia',
-    pages: 119,
-    urlImage:
-      'https://images.unsplash.com/photo-1615351897596-d3a9fffb5797?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=665&q=80',
-  },
-  {
-    id: 4,
-    title: 'Vast Deserts',
-    author: 'Riccardo Andolfo',
-    pages: 123,
-    urlImage:
-      'https://images.unsplash.com/photo-1615333619365-a44d7e655661?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
-  },
-  {
-    id: 5,
-    title: 'Parkour',
-    author: 'Miguel Arguibide',
-    pages: 56,
-    urlImage:
-      'https://images.unsplash.com/photo-1615286505008-cbca9896192f?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=962&q=80',
-  },
-  {
-    id: 6,
-    title: 'Cute Kitties',
-    author: 'Tran Mau Tri Tam',
-    pages: 489,
-    urlImage:
-      'https://images.unsplash.com/photo-1615369794017-f65e6f0c0393?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-  },
-  {
-    id: 7,
-    title: 'Beahces',
-    author: 'Josh Hemsley',
-    pages: 99,
-    urlImage:
-      'https://images.unsplash.com/photo-1615357633073-a7b67638dedb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=564&q=80',
-  },
-  {
-    id: 8,
-    title: 'Tides',
-    author: 'Carlos Mesa',
-    pages: 74,
-    urlImage:
-      'https://images.unsplash.com/photo-1615185054269-363482a365ad?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=809&q=80',
-  },
-  {
-    id: 9,
-    title: 'Magnificent Forests',
-    author: 'Kellen Riggin',
-    pages: 35,
-    urlImage:
-      'https://images.unsplash.com/photo-1615331224984-281512856592?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-  },
-  {
-    id: 10,
-    title: 'Butterflies',
-    author: 'Navi Photography',
-    pages: 358,
-    urlImage:
-      'https://images.unsplash.com/photo-1615300236079-4bdb43bd9a9a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80',
-  },
-];
-
-const myLibrary = (function createLibrary() {
-  let library = [];
-
-  function addBook(book) {
-    library.push(book);
-  }
-
-  function removeBook(indexToRemove) {
-    library = library.filter((book, index) => index !== indexToRemove);
-  }
-
-  function getBooks() {
-    return library.slice();
-  }
-
-  function toggleRead(index) {
-    library[index].toggleRead();
-  }
-
-  return { addBook, removeBook, toggleRead, getBooks };
-})();
-
-class Book {
-  constructor(title, author, numberOfPages, read, img) {
-    this.title = title;
-    this.author = author;
-    this.numberOfPages = numberOfPages;
-    this.read = read;
-    this.img = img;
-  }
-  toggleRead = function () {
-    this.read = !this.read;
-  };
-}
+import {
+  getLibrary,
+  listenLibraryUpdates,
+  removeBookAtLibrary,
+  storeBookAtLibrary,
+  updateBookReadStatus,
+} from './Store';
 
 function addBookToLibrary(
   title,
@@ -135,14 +27,14 @@ function addBookToLibrary(
   img = DEFAULT_BOOK_IMG
 ) {
   const bookToAdd = new Book(title, author, numberOfPages, read, img);
-  myLibrary.addBook(bookToAdd);
-}
-
-// Pre-add Books to the library
-function addPresetBooks() {
-  books.forEach(({ title, author, pages, urlImage }) =>
-    addBookToLibrary(title, author, pages, true, urlImage)
-  );
+  // myLibrary.addBook(bookToAdd);
+  storeBookAtLibrary(getUserId(), {
+    title,
+    author,
+    numberOfPages,
+    read,
+    img,
+  });
 }
 
 // UI logic
@@ -250,13 +142,36 @@ function handleLibraryClick(e) {
 
   if (removeBtn) {
     const index = removeBtn.closest('.book-card[data-key]').dataset.key;
-    myLibrary.removeBook(parseInt(index));
+    const { title, author, numberOfPages, read, img } = myLibrary
+      .getBooks()
+      .find((book, i) => i === parseInt(index));
+
+    // myLibrary.removeBook(parseInt(index));
+    removeBookAtLibrary(getUserId(), {
+      title,
+      author,
+      numberOfPages,
+      read,
+      img,
+    });
   }
 
   if (readToggleBtn) {
     const index = readToggleBtn.closest('.book-card[data-key]').dataset.key;
     myLibrary.toggleRead(index);
+    const bookList = myLibrary
+      .getBooks()
+      .map(({ toggleRead, ...book }) => ({ ...book }));
+    updateBookReadStatus(getUserId(), bookList);
   }
+}
+
+function onLibraryUpdates(updatedLibrary) {
+  myLibrary.empty();
+  updatedLibrary.forEach(({ title, author, numberOfPages, read, img }) => {
+    const bookToAdd = new Book(title, author, numberOfPages, read, img);
+    myLibrary.addBook(bookToAdd);
+  });
   populateLibrary();
 }
 
@@ -271,22 +186,33 @@ function onAuthStateChange(user) {
     userNameElem.removeAttribute('hidden');
     userPicElem.removeAttribute('hidden');
     signOutBtn.removeAttribute('hidden');
+    openModalBtn.removeAttribute('disabled');
 
     signInBtn.setAttribute('hidden', 'true');
+    const libraryResponse = getLibrary(getUserId());
+    libraryResponse.then((bookList) => {
+      bookList.forEach(({ title, author, numberOfPages, read, img }) => {
+        const bookToAdd = new Book(title, author, numberOfPages, read, img);
+        myLibrary.addBook(bookToAdd);
+      });
+
+      listenLibraryUpdates(getUserId(), onLibraryUpdates);
+    });
   } else {
     userNameElem.setAttribute('hidden', 'true');
     userPicElem.setAttribute('hidden', 'true');
     signOutBtn.setAttribute('hidden', 'true');
-
     signInBtn.removeAttribute('hidden');
+    openModalBtn.setAttribute('disabled', 'true');
+
+    myLibrary.empty();
+    populateLibrary();
   }
 }
 
 // Event Listeners
 
 window.addEventListener('DOMContentLoaded', () => {
-  // pre-add books
-  addPresetBooks();
   // display books
   populateLibrary();
 });
