@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
-    "start": "webpack serve --open --mode=development",
+    "start": "webpack serve --open --mode=development --devtool=eval-source-map",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
