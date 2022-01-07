@@ -30,3 +30,7 @@ export function getUserName() {
 export function isUserSignedIn() {
   return !!getAuth().currentUser;
 }
+
+export function getUserId() {
+  return getAuth().currentUser.uid;
+}
